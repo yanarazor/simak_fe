@@ -1,0 +1,173 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>MapServer Layer</title>
+    <link rel="stylesheet" href="theme/default/style.css" type="text/css" />
+    <style>
+		.opmap
+		{
+			height:450px;
+			width:550px;
+		}
+    </style>
+    <script src="OpenLayers.js"></script>
+    <script src='http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAjpkAC9ePGem0lIq5XcMiuhR_wWLPFku8Ix9i2SXYRVK3e45q1BQUd_beF8dtzKET_EteAjPdGDwqpQ'></script>
+    <script type="text/javascript">
+
+		/*######################
+		Author: Md Abul Khayer
+		Year: 2010
+		khayer.wordpress.com
+		#######################*/
+
+        var map, layer;
+		var infoControls;
+
+        function init(){
+
+			format = 'image/png';
+
+			var bounds = new OpenLayers.Bounds(
+				88.011, 20.59,
+				92.683, 26.634
+			);
+
+			var options = {
+				controls: [],
+				maxExtent: bounds,
+				maxResolution: 0.023609375,
+				projection: "EPSG:4326",
+			};
+
+			map = new OpenLayers.Map('map', options);
+
+			// Add Google Layer as baselayer
+			var gphy = new OpenLayers.Layer.Google(
+			"Google Physical",
+			{type: G_PHYSICAL_MAP}
+            );
+
+			var gmap = new OpenLayers.Layer.Google(
+                "Google Streets", // the default
+                {numZoomLevels: 20}
+            );
+
+			var ghyb = new OpenLayers.Layer.Google(
+                "Google Hybrid",
+                {type: G_HYBRID_MAP, numZoomLevels: 20}
+            );
+
+			var gsat = new OpenLayers.Layer.Google(
+                "Google Satellite",
+                {type: G_SATELLITE_MAP, numZoomLevels: 22}
+            );
+
+            map.addLayers([gphy, gmap, ghyb, gsat]);
+
+			// Add Custom base layer. Bangladesh District boundary.
+			var dist = new OpenLayers.Layer.WMS( "Bangladesh Admin Bourndary",
+                    "http://localhost/cgi-bin/mapserv.exe?map=C:/Buku_Mapserver/appweb/map/chameleon.map",
+					{layers: 'Perairan',
+						srs: 'EPSG:4326',
+						format: format,
+						isBaseLayer: true,
+						visibility: true
+					}
+
+			);
+
+            // add road layer as overlay layer
+			var bdhw = new OpenLayers.Layer.WMS(
+                "Bangladesh Highway",
+                "http://localhost/cgi-bin/mapserv.exe",
+                {
+                    map: 'C:/Buku_Mapserver/appweb/map/chameleon.map',
+                    transparent: 'TRUE',
+                    layers: 'Perairan',
+					srs: 'EPSG:4326',
+					format: format
+                },
+                {'reproject': true}
+            );
+
+            // Bangladesh distric head queater as overlay layer.
+			var bdhq = new OpenLayers.Layer.WMS(
+                "Bangladesh Dist HQ",
+                "http://localhost/cgi-bin/mapserv.exe",
+                {
+                    map: 'C:/Buku_Mapserver/appweb/map/chameleon.map',
+                    transparent: 'TRUE',
+                    layers: 'Perairan',
+					srs: 'EPSG:4326',
+					format: format
+                },
+                {'reproject': true}
+            );
+
+			// Get identities of the map. Can be either click or hover is activated.
+			infoControls = {
+				click: new OpenLayers.Control.WMSGetFeatureInfo({
+					url: 'http://localhost/cgi-bin/mapserv.exe?map=C:/Buku_Mapserver/appweb/map/chameleon.map',
+					title: 'Identify features by clicking',
+					layers: [dist],
+					infoFormat:'text/html',
+					queryVisible: true
+				}),
+            	hover: new OpenLayers.Control.WMSGetFeatureInfo({
+                url: 'http://localhost/cgi-bin/mapserv.exe?map=C:/Buku_Mapserver/appweb/map/chameleon.map',
+                title: 'Identify features by clicking',
+                layers: [dist],
+                hover: true,
+				infoFormat: 'text/html',
+                queryVisible: true
+            	})
+			}
+
+            map.addLayers([dist, bdhw, bdhq]);
+			map.zoomToMaxExtent();
+            map.addControl( new OpenLayers.Control.LayerSwitcher() );
+			map.addControl(new OpenLayers.Control.Navigation());
+			map.addControl(new OpenLayers.Control.LayerSwitcher({'div':OpenLayers.Util.getElement('layerswitcher')}));
+
+			map.addControl(new OpenLayers.Control.Scale($('scale')));
+			map.addControl(new OpenLayers.Control.MousePosition({element: $('location')}));
+
+			for (var i in infoControls) {
+				infoControls[i].events.register("getfeatureinfo", this, showInfo);
+				map.addControl(infoControls[i]);
+			}
+
+        	infoControls.click.activate();
+
+        }
+
+		function showInfo(evt) {
+			if (evt.features && evt.features.length) {
+				 //highlightLayer.destroyFeatures();
+				 //highlightLayer.addFeatures(evt.features);
+				 //highlightLayer.redraw();
+
+				 $('nodelist').innerHTML=evt.text;
+			} else {
+				$('nodelist').innerHTML=evt.text;
+			}
+    	}
+
+    </script>
+  </head>
+
+  <body onLoad="init()">
+    <div id="title">MapServer WMS Layer with Google map.</div>
+    <div id="layerswitcher" class="olControlLayerSwitcher"></div>
+    <div id="map" class="opmap"></div>
+
+    <div id="wrapper">
+        <div id="location" style="float:left">location</div>
+        <div id="scale" style="float:left"></div>
+        <div id="scale" style="clear:both"></div>
+    </div>
+    <div id="nodelist">
+        <em>Click on the map to get feature info</em>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Andre Projectzt - Openlayers</title>
+<style type="text/css">
+<!--
+body {
+background-color: #FFFFFF;
+margin: 0px;
+}
+#header {
+height: 100px;
+text-align:center;
+color:#000000;
+font-size:55px;
+font-family:"DigifaceWide";
+border-bottom-width: 10px;
+border-bottom-style: double;
+border-bottom-color: #000000;
+}
+#map-box {
+height: 600px;
+width: 800px;
+margin-right: auto;
+margin-left: auto;
+border: 5px double #000000;
+margin-top: 20px;
+margin-bottom: 20px;
+}
+#map {
+float: left;
+height: 600px;
+width: 800px;
+}
+-->
+</style>
+<script src="OpenLayers.js"></script>
+<script type="text/javascript">
+var map;
+var vectorLayer;
+var vectorAcuan;
+var select;
+
+var controls = [
+new OpenLayers.Control.PanZoomBar(),
+new OpenLayers.Control.MouseToolbar(),
+new OpenLayers.Control.Scale(),
+new OpenLayers.Control.MousePosition()
+];
+
+function init() {
+map = new OpenLayers.Map('map',{controls : controls});
+var jpl_wms = new OpenLayers.Layer.MapServer("Padang","http://localhost/cgi-bin/mapserv.exe",{map:'C:/Buku_Mapserver/mapfile/map02.map',layer:'all'});
+//layer = new OpenLayers.Layer.WMS( "OpenLayers WMS","http://vmap0.tiles.osgeo.org/wms/vmap0",{layers: 'basic'} );
+map.addLayer(jpl_wms);
+//map.zoomToExtent(extent);
+//map.addLayer(layer);
+map.zoomToMaxExtent(extent);
+
+}
+</script>
+</head>
+<body onload="init()">
+<div id="header">ANDRE PROJECTZT - OPENLAYERS</div>
+<div id="map-box">
+<div id="map"></div>
+</div>
+</body>
+</html>
