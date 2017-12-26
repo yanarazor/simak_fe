@@ -587,7 +587,8 @@ class Jadwal_model extends BF_Model {
 	{
 		if (empty($this->selects))
 		{
-			$this->select($this->table_name .'.*,nama_dosen,gelar_akademik,nama_mata_kuliah,simak_mastermatakuliah.sks,avg(jawaban) as ratarata');
+			$this->select($this->table_name .'.*,nama_dosen,gelar_akademik,nama_mata_kuliah,simak_mastermatakuliah.sks,
+				(select avg(jawaban) from simak_kuesioner_jawaban where kode_soal != "srn" and simak_jadwal.id = simak_kuesioner_jawaban.kode_jadwal) as ratarata');
 		}
 		 
 		if ($tahunakademik != "")
@@ -599,11 +600,12 @@ class Jadwal_model extends BF_Model {
 			$this->db->where('kode_dosen',$dosen);
 		} 
 		$this->db->where('status_mata_kuliah',"A");
+
 		
 		$this->db->where('simak_mastermatakuliah.kode_prodi = simak_jadwal.prodi');
 		$this->db->join('masterdosen', 'masterdosen.id = jadwal.kode_dosen', 'inner'); 
 		$this->db->join('mastermatakuliah', 'mastermatakuliah.kode_mata_kuliah = jadwal.kode_mk', 'left');  
-		$this->db->join('kuesioner_jawaban', 'jadwal.id = kuesioner_jawaban.kode_jadwal', 'left'); 
+		//$this->db->join('kuesioner_jawaban', 'jadwal.id = kuesioner_jawaban.kode_jadwal', 'left'); 
 		$this->db->group_by("jadwal.kode_mk");
 		return parent::find_all();
 

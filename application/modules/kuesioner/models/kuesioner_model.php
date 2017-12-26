@@ -71,8 +71,23 @@ class Kuesioner_model extends BF_Model {
 		{
 			$this->db->where('kode like "'.$kode.'%"');
 		}
-		  
+		//$this->db->where("status_pertanyaan",1);
 		return parent::find_all();
 
 	}
+	public function find_isi($kode = "")
+	{
+		if (empty($this->selects))
+		{
+			$this->select($this->table_name .'.*');
+		}
+		if ($kode != "")
+		{
+			$this->db->where('kode like "'.$kode.'%"');
+		}
+		$this->db->where("status_pertanyaan",1);
+		return parent::find_all();
+
+	}
+
 }

@@ -21,52 +21,26 @@ $can_edit		= $this->auth->has_permission('Kuesioner.Master.Edit');
 				</tr>
 				<tr>
 					<th>
-						KB
-					</th>
-					<th>
-						K
-					</th>
-					<th>
-						C
+						SB
 					</th>
 					<th>
 						B
 					</th>
 					<th>
-						BS
+						C
+					</th>
+					<th>
+						K
+					</th>
+					<th>
+						SK
 					</th>
 				</tr>
-				<tr>
-					<th>
-						1
-					</th>
-					<th>
-						2
-					</th>
-					<th>
-						3
-					</th>
-					<th>
-						4
-					</th>
-					<th>
-						5
-					</th>
-				</tr>
+				 
 			</thead>
 			 
 			<tbody>
-				<tr>
-					<td>I</td>
-					<td alidn="center">
-						<b>Penampilan dan Waktu</b>
-					</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
+				 
 				<?php
 				$no = 1;
 				if (isset($records) && is_array($records) && count($records)) :
@@ -79,144 +53,26 @@ $can_edit		= $this->auth->has_permission('Kuesioner.Master.Edit');
 					<td><?php e($record->pertanyaan) ?></td>
 					<td align="center">
 						<input type='hidden' name='soal[]' maxlength="3" value="<?php e($record->kode) ?>" />
-						<input type="radio" required name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "1" ? "checked" : ""; ?> value="1"/>
-					</td>
-					<td align="center">
-						<input type="radio" required name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "2" ? "checked" : ""; ?> value="2"/>
-					</td>
-					<td align="center">
-						<input type="radio" required name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "3" ? "checked" : ""; ?> value="3"/>
+						<input type="radio" required name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "5" ? "checked" : ""; ?> value="5"/>
 					</td>
 					<td align="center">
 						<input type="radio" required name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "4" ? "checked" : ""; ?> value="4"/>
 					</td>
 					<td align="center">
-						<input type="radio" required name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "5" ? "checked" : ""; ?> value="5"/>
+						<input type="radio" required name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "3" ? "checked" : ""; ?> value="3"/>
+					</td>
+					<td align="center">
+						<input type="radio" required name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "2" ? "checked" : ""; ?> value="2"/>
+					</td>
+					<td align="center">
+						<input type="radio" required name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "1" ? "checked" : ""; ?> value="1"/>
 					</td>
 				</tr>
 				<?php
 					$no++;
 					endforeach;
 				 endif; ?>
-				<tr>
-					<td>II</td>
-					<td alidn="center" colspan="6">
-						<b>Materi dan Isi</b>
-					</td>
-					 
-				</tr>
-				<?php
-				if (isset($record2s) && is_array($record2s) && count($record2s)) :
-					foreach ($record2s as $record) :
-					$nilai = isset($jsonjawaban['id'][$record->kode]) ? $jsonjawaban['id'][$record->kode] : "";
-				?>
-				
-				<tr>
-					<td><?php e($no); ?>.</td>
-					<td><?php e($record->pertanyaan) ?></td>
-					<td align="center">
-						<input type='hidden' name='soal[]' maxlength="3" value="<?php e($record->kode) ?>" />
-						<input type="radio" name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "1" ? "checked" : ""; ?> value="1"/>
-					</td>
-					<td align="center">
-						<input type="radio" name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "2" ? "checked" : ""; ?> value="2"/>
-					</td>
-					<td align="center">
-						<input type="radio" name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "3" ? "checked" : ""; ?> value="3"/>
-					</td>
-					<td align="center">
-						<input type="radio" name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "4" ? "checked" : ""; ?> value="4"/>
-					</td>
-					<td align="center">
-						<input type="radio" name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "5" ? "checked" : ""; ?> value="5"/>
-					</td>
-				</tr>
-				<?php
-					$no++;
-					endforeach;
-				 endif; ?>
-				 <tr>
-					<td>III</td>
-					<td alidn="center">
-						<b>Tanggung Jawab dan Objektivitas</b>
-					</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<?php
-				if (isset($record3s) && is_array($record3s) && count($record3s)) :
-					foreach ($record3s as $record) :
-					$nilai = isset($jsonjawaban['id'][$record->kode]) ? $jsonjawaban['id'][$record->kode] : "";
-				?>
-				
-				<tr>
-					<td><?php e($no); ?>.</td>
-					<td><?php e($record->pertanyaan) ?></td>
-					<td align="center">
-						<input type='hidden' name='soal[]' maxlength="3" value="<?php e($record->kode) ?>" />
-						<input type="radio" name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "1" ? "checked" : ""; ?> value="1"/>
-					</td>
-					<td align="center">
-						<input type="radio" name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "2" ? "checked" : ""; ?> value="2"/>
-					</td>
-					<td align="center">
-						<input type="radio" name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "3" ? "checked" : ""; ?> value="3"/>
-					</td>
-					<td align="center">
-						<input type="radio" name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "4" ? "checked" : ""; ?> value="4"/>
-					</td>
-					<td align="center">
-						<input type="radio" name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "5" ? "checked" : ""; ?> value="5"/>
-					</td>
-				</tr>
-				<?php
-					$no++;
-					endforeach;
-				 endif; ?>
-				 <tr>
-					<td>IV</td>
-					<td alidn="center">
-						<b>KESAN</b>
-					</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<?php
-				if (isset($record4s) && is_array($record4s) && count($record4s)) :
-					foreach ($record4s as $record) :
-					$nilai = isset($jsonjawaban['id'][$record->kode]) ? $jsonjawaban['id'][$record->kode] : "";
-				?>
-				
-				<tr>
-					<td><?php e($no); ?>.</td>
-					<td><?php e($record->pertanyaan) ?></td>
-					<td align="center">
-						<input type='hidden' name='soal[]' maxlength="3" value="<?php e($record->kode) ?>" />
-						<input type="radio" name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "1" ? "checked" : ""; ?> value="1"/>
-					</td>
-					<td align="center">
-						<input type="radio" name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "2" ? "checked" : ""; ?> value="2"/>
-					</td>
-					<td align="center">
-						<input type="radio" name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "3" ? "checked" : ""; ?> value="3"/>
-					</td>
-					<td align="center">
-						<input type="radio" name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "4" ? "checked" : ""; ?> value="4"/>
-					</td>
-					<td align="center">
-						<input type="radio" name="nilai[<?php e($record->kode); ?>]" <?php echo $nilai == "5" ? "checked" : ""; ?> value="5"/>
-					</td>
-				</tr>
-				<?php
-					$no++;
-					endforeach;
-				 endif; ?>
+				 
 			</tbody>
 		</table>
 		<div class="callout callout-warning">
@@ -230,11 +86,11 @@ $can_edit		= $this->auth->has_permission('Kuesioner.Master.Edit');
 		<br>
 		Saran anda sangat berarti bagi kemajuan FEB UMJ, Rahasia anda dijamin <br>
 		<b>Keterangan</b><br>
-		KB = Kurang Baik<br>
-		K = Kurang<br>
+		SB = Sangat Baik<br>
 		B = Baik<br>
-		BS = Baik Sekali<br>
 		C = Cukup<br>
+		K = Kurang<br>
+		SK = Sangat Kurang<br>
 		 
 	</div>
     <div class="box-footer">

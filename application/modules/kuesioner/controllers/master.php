@@ -74,13 +74,13 @@ class master extends Admin_Controller
 		$idjadwal = $this->uri->segment(5);
 		Template::set('idjadwal', $idjadwal);
 		
-		$records = $this->kuesioner_model->find_all("1");
+		$records = $this->kuesioner_model->find_isi("1");
 		Template::set('records', $records);
-		$record2s = $this->kuesioner_model->find_all("2");
+		$record2s = $this->kuesioner_model->find_isi("2");
 		Template::set('record2s', $record2s);
-		$record3s = $this->kuesioner_model->find_all("3");
+		$record3s = $this->kuesioner_model->find_isi("3");
 		Template::set('record3s', $record3s);
-		$record4s = $this->kuesioner_model->find_all("4");
+		$record4s = $this->kuesioner_model->find_isi("4");
 		Template::set('record4s', $record4s);
 		// cek isi data sebelumnya
 		$recordjawaban = $this->kuesioner_jawaban_model->find_all($idjadwal,$this->current_user->nim);
@@ -137,13 +137,13 @@ class master extends Admin_Controller
 		$idjadwal = $this->uri->segment(5);
 		Template::set('idjadwal', $idjadwal);
 		
-		$records = $this->kuesioner_model->find_all("1");
+		$records = $this->kuesioner_model->find_isi("1");
 		Template::set('records', $records);
-		$record2s = $this->kuesioner_model->find_all("2");
+		$record2s = $this->kuesioner_model->find_isi("2");
 		Template::set('record2s', $record2s);
-		$record3s = $this->kuesioner_model->find_all("3");
+		$record3s = $this->kuesioner_model->find_isi("3");
 		Template::set('record3s', $record3s);
-		$record4s = $this->kuesioner_model->find_all("4");
+		$record4s = $this->kuesioner_model->find_isi("4");
 		Template::set('record4s', $record4s);
 		// cek isi data sebelumnya
 		$recordjawaban = $this->kuesioner_jawaban_model->find_result($idjadwal);

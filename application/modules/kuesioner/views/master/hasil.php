@@ -24,14 +24,7 @@ $pembagiall = 0;
 			</thead>
 			 
 			<tbody>
-				<tr>
-					<td>I</td>
-					<td alidn="center">
-						<b>Penampilan dan Waktu</b>
-					</td>
-					<td></td>
-					 
-				</tr>
+				 
 				<?php
 				$no = 1;
 				if (isset($records) && is_array($records) && count($records)) :
@@ -54,92 +47,7 @@ $pembagiall = 0;
 					$no++;
 					endforeach;
 				 endif; ?>
-				<tr>
-					<td>II</td>
-					<td alidn="center" colspan="6">
-						<b>Materi dan Isi</b>
-					</td>
-					 
-				</tr>
-				<?php
-				if (isset($record2s) && is_array($record2s) && count($record2s)) :
-					foreach ($record2s as $record) :
-					$nilai = isset($jsonjawaban['id'][$record->kode]) ? $jsonjawaban['id'][$record->kode] : "";
-					if($nilai > 0){
-						$totalnilai = $totalnilai + $nilai;
-						$pembagiall++;
-					}
-				?>
-				
-				<tr>
-					<td><?php e($no); ?>.</td>
-					<td><?php e($record->pertanyaan) ?></td>
-					<td align="center">
-						<?php echo $nilai; ?>
-					</td>
-				</tr>
-				<?php
-					$no++;
-					endforeach;
-				 endif; ?>
-				 <tr>
-					<td>III</td>
-					<td alidn="center">
-						<b>Tanggung Jawab dan Objektivitas</b>
-					</td>
-					<td></td>
-					 
-				</tr>
-				<?php
-				if (isset($record3s) && is_array($record3s) && count($record3s)) :
-					foreach ($record3s as $record) :
-					$nilai = isset($jsonjawaban['id'][$record->kode]) ? $jsonjawaban['id'][$record->kode] : "";
-					if($nilai > 0){
-						$totalnilai = $totalnilai + $nilai;
-						$pembagiall++;
-					}
-				?>
-				
-				<tr>
-					<td><?php e($no); ?>.</td>
-					<td><?php e($record->pertanyaan) ?></td>
-					<td align="center">
-						<?php echo $nilai; ?>
-					</td>
-				</tr>
-				<?php
-					$no++;
-					endforeach;
-				 endif; ?>
-				 <tr>
-					<td>IV</td>
-					<td alidn="center">
-						<b>KESAN</b>
-					</td>
-					<td></td>
-					 
-				</tr>
-				<?php
-				if (isset($record4s) && is_array($record4s) && count($record4s)) :
-					foreach ($record4s as $record) :
-					$nilai = isset($jsonjawaban['id'][$record->kode]) ? $jsonjawaban['id'][$record->kode] : "";
-					if($nilai > 0){
-						$totalnilai = $totalnilai + $nilai;
-						$pembagiall++;
-					}
-				?>
-				
-				<tr>
-					<td><?php e($no); ?>.</td>
-					<td><?php e($record->pertanyaan) ?></td>
-					<td align="center">
-						<?php echo $nilai; ?>
-					</td>
-				</tr>
-				<?php
-					$no++;
-					endforeach;
-				 endif; ?>
+				 
 				<tr>
 					<td></td>
 					<td><b>Rata-rata</b></td>
@@ -170,11 +78,11 @@ $pembagiall = 0;
 		
 		<br>
 		<b>Keterangan</b><br>
-		KB = Kurang Baik<br>
-		K = Kurang<br>
+		SB = Sangat Baik<br>
 		B = Baik<br>
-		BS = Baik Sekali<br>
 		C = Cukup<br>
+		K = Kurang<br>
+		SK = Sangat Kurang<br>
 		 
 	</div>
     
