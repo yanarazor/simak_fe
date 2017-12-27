@@ -109,21 +109,17 @@ $id = isset($datakrs['id']) ? $datakrs['id'] : '';
 		 <th style="padding:5px;" width="40px">No</th>
 		 <th style="padding:5px;" width="100px">NIM</th>
 		 <th style="padding:5px;" width="200px">Nama</th>
-		  <?php for($i=1;$i<=12;$i++){ ?>
+		 <?php for($i=1;$i<$jml+1;$i++){ ?>
 			<td style="padding:5px;" align="center" width="100px" ><?php echo $i; ?></td>
 		 <?php } ?>
-		  
+		 <th style="padding:5px;" width="50px">Persentase</th>
     </tr>
-    
     	 <?php 
     	 		$semester = 0;
     	 		$hal = 1;
 				if (isset($records) && is_array($records) && count($records)) : 
-					 
 					$no = 1;
-					
 					 foreach ($records as $record) :
-					
 				?> 
 				<?php 
 				if($hal > 255) { 
@@ -134,10 +130,10 @@ $id = isset($datakrs['id']) ? $datakrs['id'] : '';
 						  <th style="padding:5px;" width="40px">No</th>
 						  <th style="padding:5px;" width="100px">NIM</th>
 						  <th style="padding:5px;" width="300px">Nama</th>
-						  <?php for($i=1;$i<=12;$i++){ ?>
+						  <?php for($i=1;$i<$jml+1;$i++){ ?>
 							 <td style="padding:5px;" align="center" width="100px" ><?php echo $i; ?></td>
 						  <?php } ?>
-		  
+		  					<td style="padding:5px;" width="50px">%</td>
 					 </tr>
 					
 				 <?php 
@@ -147,12 +143,30 @@ $id = isset($datakrs['id']) ? $datakrs['id'] : '';
 				  <tr>
 					<td valign="middle" align="center" style="padding:5px;"> <?php echo $no; ?>. </td>
 					<td valign="middle" align="left" style="padding:5px;"> <?php echo isset( $record->mahasiswa) ? $record->mahasiswa : ''; ?></td>
-			 		<td valign="middle" align="left" style="padding:5px;"> <?php echo isset( $record->nama_mahasiswa) ? $record->nama_mahasiswa : ''; ?></td>
-					<?php for($i=1;$i<=12;$i++){ ?>
+			 		<td valign="middle" align="left" style="padding:5px;"> <?php echo isset( $record->nama_mahasiswa) ? $record->nama_mahasiswa : ''; ?>
+			 			
+			 		</td>
+					<?php 
+					$jmlada = 0;
+					for($i=1;$i<$jml+1;$i++){ ?>
 						<td valign="middle" align="center" style="padding:5px;">
-							<?php echo isset($dataabsen[$record->mahasiswa."_".$i]) ? "ada" :""; ?>
-						</td>
+							<?php if(isset($dataabsen[$record->mahasiswa."_".$i]))
+							{ 
+								echo "ada"; 
+								$jmlada = $jmlada + 1;
+							}; 
+							?>
+						
 					 <?php } ?>
+					 
+					</td>
+					<td align="center">
+						<?php 
+							$persentase = $jmlada/$jml * 100;
+							echo round($persentase)."%";
+							$jmlada = 0;
+						?>
+					</td>
 				  </tr>
 				  
 				
@@ -167,11 +181,24 @@ $id = isset($datakrs['id']) ? $datakrs['id'] : '';
 				 <tr>
 					 
 			 		<td valign="middle" align="left" colspan="3" style="padding:5px;">Dosen</td>
-					<?php for($i=1;$i<=12;$i++){ ?>
-						<td valign="middle" style="padding:5px;">
-						<?php echo isset($dataabsen[$nidn."_".$i]) ? "ada" :""; ?>
+					<?php for($i=1;$i<$jml+1;$i++){ ?>
+						<td valign="middle" align="center" style="padding:5px;">
+						<?php if(isset($dataabsen[$nidn."_".$i]))
+							{ 
+								echo "ada"; 
+								$jmlada = $jmlada + 1;
+							}; 
+						?>
+						
 						 </td>
 					 <?php } ?>
+					 <td align="center">
+						<?php 
+							$persentase = $jmlada/$jml * 100;
+							echo round($persentase)."%";
+							$jmlada = 0;
+						?>
+					</td>
 				  </tr>
 				<?php
 				   

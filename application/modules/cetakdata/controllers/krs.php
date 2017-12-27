@@ -161,7 +161,7 @@ class krs extends Admin_Controller
 		$tahun = $this->input->get('tahun');
 		$kelas = $this->input->get('kelas');
 		$sms = $this->input->get('sms');
-		$jml = $this->input->get('jml');
+		$jml = $this->input->get('jml') ? $this->input->get('jml') : 12;
 		
 		$this->load->model('masterprogramstudi/masterprogramstudi_model', null, true);
 		$prodi = $this->masterprogramstudi_model->find_detil($filljurusan);
@@ -171,6 +171,7 @@ class krs extends Admin_Controller
 		
 		$this->load->model('jadwal/jadwal_model', null, true);
 		$rcjadwal = $this->jadwal_model->find_detil($kode_mk,$kelas,$filljurusan,$tahun);
+		$jml 				= isset($rcjadwal[0]->jml_pertemuan) ? $rcjadwal[0]->jml_pertemuan : "12";
 		//die(print_r($rcjadwal));
 		
 		$records = $this->datakrs_model->find_absen($tahun,$filljurusan,$kode_mk,$dosen,$sms,$kelas);
@@ -206,7 +207,7 @@ class krs extends Admin_Controller
 		$tahun = $this->input->get('tahun');
 		$kelas = $this->input->get('kelas');
 		$sms = $this->input->get('sms');
-		$jml = $this->input->get('jml');
+		//$jml = $this->input->get('jml') ? $this->input->get('jml') : 12;
 		$mode = $this->uri->segment(5); 
 		//die($filljurusan);
 		$this->load->model('masterprogramstudi/masterprogramstudi_model', null, true);
@@ -231,7 +232,7 @@ class krs extends Admin_Controller
 		$bobot_formatif 		= isset($rcjadwal[0]->bobot_formatif) ? $rcjadwal[0]->bobot_formatif : "";
 		$bobot_uts 				= isset($rcjadwal[0]->bobot_uts) ? $rcjadwal[0]->bobot_uts : "";
 		$bobot_uas 				= isset($rcjadwal[0]->bobot_uas) ? $rcjadwal[0]->bobot_uas : "";
-		
+		$jml 				= isset($rcjadwal[0]->jml_pertemuan) ? $rcjadwal[0]->jml_pertemuan : "12";
 		// getdetil taun akademik
 		$this->load->model('tahunakademik/tahunakademik_model', null, true);
 		$recordtahunakademik = $this->tahunakademik_model->find_all($tahun);
