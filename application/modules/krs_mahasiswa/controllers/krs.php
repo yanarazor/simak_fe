@@ -1201,5 +1201,104 @@ class krs extends Admin_Controller
 
 		return $return;
 	}
+	public function upload()
+	{
+		 
+		Template::set('toolbar_title', 'Upload KRS');
+		Template::render(); 
+	}
+	function saveuploadkrs(){
+		$this->auth->restrict('Krs_Mahasiswa.Krs.Create');
+		ini_set('memory_limit', '1024M'); 
+		$success = 0;
+		$sudahada = 0;
+    	//die("masuk");
+    	$this->load->library('convert');
+		$convert = new convert();	
+    	 $this->load->helper('handle_upload');
+		 $uploadData = array();
+		 $upload = true;
+		
+		 $id = "";
+		 $namafile = "";
+		 if (isset($_FILES['userfile']) && is_array($_FILES['userfile']) && $_FILES['userfile']['error'] != 4)
+		 {
+			$tmp_name = pathinfo($_FILES['userfile']['name'], PATHINFO_FILENAME);
+			$uploadData = handle_upload('userfile',$this->settings_lib->item('site.pathxls'));
+			 if (isset($uploadData['error']) && !empty($uploadData['error']))
+			 {
+			 	$tipefile=$_FILES['userfile']['type'];
+			 	//$tipefile = $_FILES['userfile']['name'];
+				 $upload = false;
+				 log_activity($this->auth->user_id(), 'Gagal : '.$uploadData['error'].$tipefile.$this->input->ip_address(), 'datakrs');
+			 }else{
+			 	$namafile = $uploadData['data']['file_name'];
+			 	$file = $this->settings_lib->item('site.pathxls').$namafile;
+				$this->load->library('Excel');
+				$objPHPExcel = PHPExcel_IOFactory::load($file);
+
+				//  Get worksheet dimensions
+				$sheet = $objPHPExcel->getSheet(0); 
+				$highestRow = $sheet->getHighestRow(); 
+				$highestColumn = $sheet->getHighestColumn();
+
+				  //  Loop through each row of the worksheet in turn
+				for ($row = 2; $row <= $highestRow; $row++){ 
+					 //  Read a row of data into an array
+					 $rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row,
+													 NULL,
+													 TRUE,
+													 FALSE);
+					 //  Insert row data array into your database of choice here
+				  	
+					 $kode_mk			= $rowData[0][1];
+					 $nama_mk			= $rowData[0][2];
+					 $sks				= $rowData[0][3];
+					 $nim				= preg_replace("/\s+/", "",$rowData[0][4]);
+					 $kode_dosen		= $rowData[0][9];
+					 $namadosen			= $rowData[0][10];
+					 $tahun_akademik	= $rowData[0][11];
+					 $kode_jadwal		= $rowData[0][12];
+					//die($nim);
+					$semester = $this->convert->getsemester($nim,$tahun_akademik);
+					$jmlada = $this->datakrs_model->uniqtahun($nim,$kode_mk,$tahun_akademik);
+					if($nim != "" and $jmlada < 1){
+						$data = array();
+						$data['mahasiswa']        	= $nim;
+						$data['kode_mk']        	= $kode_mk;
+						$data['nama_mk']        	= $nama_mk;
+						$data['sks']        		= $sks;
+						$valsemester = str_replace("semester :","",$semester);
+						$data['semester']        	= (int)trim($valsemester);
+						$data['kode_dosen']        	= $kode_dosen;
+						$data['namadosen']        	= $namadosen;
+						$data['tahun_akademik']     = $tahun_akademik;
+						$data['kode_jadwal']        = $kode_jadwal;
+						
+						$insert_id = $this->datakrs_model->insert($data);
+						if($insert_id){
+							$success++;
+						}
+					}else{
+						$sudahada++;
+					}
+						 
+					 
+			  	}
+				$msgsudahada = "";
+				$msgsuccess = "";
+				if($sudahada>0)
+					$msgsudahada .= "Duplikasi data : ".$sudahada." data";
+				if($success>0)
+					$msgsuccess .= "Berhasil : ".$success." data";
+				echo $msgsuccess.$msgsudahada."\nUpload Selesai";
+
+                log_activity($this->auth->user_id(), 'Upload KRS dari ' .$msgsuccess.$msgsudahada. $this->input->ip_address(), 'datakrs');
+			 }
+		 }else{
+		 	log_activity($this->auth->user_id(), 'File tidak ditemukan : ' . $this->input->ip_address(), 'datakrs');
+		 } 	
+       exit();
+	}
 
 }

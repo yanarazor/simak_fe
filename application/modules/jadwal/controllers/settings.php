@@ -533,6 +533,10 @@ class settings extends Admin_Controller
 		$data['prodi']        = $this->input->post('jadwal_prodi');
 		$data['tahun_akademik']        = $this->input->post('tahun_akademik');
 
+		$data['kode_dosen_2']        = $this->input->post('jadwal_kode_dosen_2');
+		$data['hari_2']        = $this->input->post('jadwal_hari_2');
+		$data['jam_2']        = $this->input->post('jadwal_jam_2');
+
 		if ($type == 'insert')
 		{
 			$id = $this->jadwal_model->insert($data);

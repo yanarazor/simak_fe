@@ -31,5 +31,9 @@
 			<a href="<?php echo site_url(SITE_AREA .'/krs/krs_mahasiswa/printkartu/'); echo isset($sms)? "/".$sms:""; echo isset($mhs)? "/".$mhs:""; ?>">Cetak Kartu</a>
 		</li>
 	<?php } ?>
-	 
+	<?php if ($this->auth->has_permission('Krs_Mahasiswa.Krs.Create')) : ?>
+		<li <?php echo $this->uri->segment(4) == 'upload' ? 'class="active"' : '' ?> >
+			<a href="<?php echo site_url(SITE_AREA .'/krs/krs_mahasiswa/upload/'); ?>">Upload KRS</a>
+		</li>
+	<?php endif; ?>	 
 </ul>

@@ -455,6 +455,17 @@ class Datakrs_model extends BF_Model {
 		$this->db->where('semester',$sms);
 		return parent::find_all();
 	}
+	public function uniqtahun($nim="",$mk="",$tahun_akademik = "")
+	{
+		if(empty($this->selects))
+		{
+			$this->select($this->table_name .'.*');
+		}
+		$this->db->where('mahasiswa',$nim);
+		$this->db->where('kode_mk',$mk);
+		$this->db->where('tahun_akademik',$tahun_akademik);
+		return parent::count_all();
+	}
 	public function cek_nama_bykode($kode="")
 	{
 		if(empty($this->selects))

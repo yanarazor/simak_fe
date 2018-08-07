@@ -1,6 +1,6 @@
 <?php
 
-$num_columns	= 9;
+$num_columns	= 12;
 $can_delete	= $this->auth->has_permission('Jadwal.Settings.Delete');
 $can_edit		= $this->auth->has_permission('Jadwal.Settings.Edit');
 $has_records	= isset($records) && is_array($records) && count($records);
@@ -78,16 +78,25 @@ $has_records	= isset($records) && is_array($records) && count($records);
 			<thead>
 				<tr>
 					<?php if ($can_delete && $has_records) : ?>
-					<th class="column-check"><input class="check-all" type="checkbox" /></th>
+					<th class="column-check" rowspan="2"><input class="check-all" type="checkbox" /></th>
 					<?php endif;?>
+					<th rowspan="2">Mata Kuliah</th>
+					<th rowspan="2">Semester</th>
+					<th colspan="3">Dosen 1</th>
+					<th colspan="3">Dosen 2</th>
+					<th rowspan="2">Kelas</th>
+					<th rowspan="2">Prodi</th>
+					<th rowspan="2">Kuota</th>
+				</tr>
+				<tr>
+					<th>Dosen</th>
 					<th>Hari</th>
 					<th>Jam</th>
-					<th>Mata Kuliah</th>
+					
+
 					<th>Dosen</th>
-					<th>Semester</th>
-					<th>Kelas</th>
-					<th>Prodi</th>
-					<th>Kuota</th>
+					<th>Hari</th>
+					<th>Jam</th>
 				</tr>
 			</thead>
 			<?php if ($has_records) : ?>
@@ -113,14 +122,19 @@ $has_records	= isset($records) && is_array($records) && count($records);
 					<?php endif;?>
 					
 				<?php if ($can_edit) : ?>
-					<td><?php echo anchor(SITE_AREA . '/settings/jadwal/edit/' . $record->id, '<span class="icon-pencil"></span>' .  $record->hari); ?></td>
+					<td><?php echo anchor(SITE_AREA . '/settings/jadwal/edit/' . $record->id, '<span class="icon-pencil"></span>' .  $record->nama_mata_kuliah); ?></td>
 				<?php else : ?>
-					<td><?php e($record->hari); ?></td>
+					<td><?php e($record->nama_mata_kuliah); ?></td>
 				<?php endif; ?>
-					<td><?php e($record->jam) ?></td>
-					<td><?php e($record->nama_mata_kuliah) ?></td>
-					<td><?php e($record->nama_dosen) ?></td>
 					<td><?php e($record->semester) ?></td>
+					<td><?php e($record->nama_dosen) ?></td>
+					<td><?php e($record->hari) ?></td>
+					<td><?php e($record->jam) ?></td>
+
+					<td><?php e($record->nama_dosen_2) ?></td>
+					<td><?php e($record->hari_2) ?></td>
+					<td><?php e($record->jam_2) ?></td>
+					
 					<td><?php e($record->kelas) ?></td>
 					<td><?php e($record->nama_prodi) ?></td>
 					<td><?php e($record->kuota_kelas) ?></td>

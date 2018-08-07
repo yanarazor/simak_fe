@@ -74,7 +74,92 @@ $id = isset($jadwal['id']) ? $jadwal['id'] : '';
 					  <span class='help-inline'><?php echo form_error('semester'); ?></span>
 				  </div>
 			  </div>  
-
+			  <div class="control-group <?php echo form_error('jadwal_kode_mk') ? 'error' : ''; ?>">
+				 <?php echo form_label('Mata Kuliah'. lang('bf_form_label_required'), 'masterdosen_kode_prodi', array('class' => 'control-label') ); ?>
+				 <div class='controls'>
+					 <select name="jadwal_kode_mk" id="jadwal_kode_mk" class="chosen-select-deselect">
+						 <option value=""></option>
+						 <?php if (isset($matakuliahs) && is_array($matakuliahs) && count($matakuliahs)):?>
+						 <?php foreach($matakuliahs as $record):?>
+							  <option value="<?php echo $record->kode_mata_kuliah;?>" <?php if(isset($jadwal['kode_mk']))  echo  ($record->kode_mata_kuliah==$jadwal['kode_mk']) ? "selected" : ""; ?>><?php echo $record->nama_mata_kuliah; ?></option>
+						  <?php endforeach;?>
+						 <?php endif;?>
+					 </select>
+					 <span class='help-inline'><?php echo form_error('jadwal_kode_mk'); ?></span>
+				 </div>
+			 </div> 
+			  <div class="control-group <?php echo form_error('jadwal_kelas') ? 'error' : ''; ?>">
+				 <?php echo form_label('Kelas', 'masterdosen_kode_prodi', array('class' => 'control-label') ); ?>
+				 <div class='controls'>
+				 	<input id='jadwal_kelas' type='text' name='jadwal_kelas' maxlength="10" value="<?php echo set_value('jadwal_kelas', isset($jadwal['kelas']) ? $jadwal['kelas'] : ''); ?>" />
+					<!--
+					 <select name="jadwal_kelas" id="jadwal_kelas" class="chosen-select-deselect">
+						 <option value=""></option>
+						 <?php if (isset($kelass) && is_array($kelass) && count($kelass)):?>
+						 <?php foreach($kelass as $record):?>
+							  <option value="<?php echo $record->nama_kelas; ?>" <?php if(isset($jadwal['kelas']))  echo  ($record->nama_kelas==$jadwal['kelas']) ? "selected" : ""; ?>><?php echo $record->nama_kelas; ?></option>
+						  <?php endforeach;?>
+						 <?php endif;?>
+					 </select>
+					 -->
+					 <span class='help-inline'><?php echo form_error('jadwal_kelas'); ?></span>
+				 </div>
+			 </div> 
+			 <div class="control-group <?php echo form_error('jadwal_kode_mk') ? 'error' : ''; ?>">
+				 <?php echo form_label('Mata Kuliah'. lang('bf_form_label_required'), 'masterdosen_kode_prodi', array('class' => 'control-label') ); ?>
+				 <div class='controls'>
+					 <select name="jadwal_kode_mk" id="jadwal_kode_mk" class="chosen-select-deselect">
+						 <option value=""></option>
+						 <?php if (isset($matakuliahs) && is_array($matakuliahs) && count($matakuliahs)):?>
+						 <?php foreach($matakuliahs as $record):?>
+							  <option value="<?php echo $record->kode_mata_kuliah;?>" <?php if(isset($jadwal['kode_mk']))  echo  ($record->kode_mata_kuliah==$jadwal['kode_mk']) ? "selected" : ""; ?>><?php echo $record->nama_mata_kuliah; ?></option>
+						  <?php endforeach;?>
+						 <?php endif;?>
+					 </select>
+					 <span class='help-inline'><?php echo form_error('jadwal_kode_mk'); ?></span>
+				 </div>
+			 </div> 
+			 <div class="control-group <?php echo form_error('kuota_kelas') ? 'error' : ''; ?>">
+				<?php echo form_label('Kuota', 'kuota', array('class' => 'control-label') ); ?>
+				<div class='controls'>
+					<input id='kuota_kelas' type='text' name='kuota_kelas' maxlength="10" value="<?php echo set_value('kuota_kelas', isset($jadwal['kuota_kelas']) ? $jadwal['kuota_kelas'] : ''); ?>" />
+					<span class='help-inline'><?php echo form_error('kuota_kelas'); ?></span>
+				</div>
+			</div>
+			 <div class="control-group <?php echo form_error('jadwal_kelas') ? 'error' : ''; ?>">
+				 <?php echo form_label('Ruangan', 'masterdosen_kode_prodi', array('class' => 'control-label') ); ?>
+				 <div class='controls'>
+				 	<input id='jadwal_ruangan' type='text' name='jadwal_ruangan' maxlength="10" value="<?php echo set_value('kd_ruangan', isset($jadwal['kd_ruangan']) ? $jadwal['kd_ruangan'] : ''); ?>" />
+					<!--
+					 <select name="jadwal_ruangan" id="jadwal_ruangan" class="chosen-select-deselect">
+						 <option value=""></option>
+						 <?php if (isset($ruangans) && is_array($ruangans) && count($ruangans)):?>
+						 <?php foreach($ruangans as $record):?>
+							  <option value="<?php echo $record->kode_ruangan; ?>" <?php if(isset($jadwal['kd_ruangan']))  echo  ($record->kode_ruangan==$jadwal['kd_ruangan']) ? "selected" : ""; ?>><?php echo $record->Nama_ruangan; ?></option>
+						  <?php endforeach;?>
+						 <?php endif;?>
+					 </select>
+					 -->
+					 <span class='help-inline'><?php echo form_error('jadwal_kelas'); ?></span>
+				 </div>
+			 </div>   
+			  </fieldset>
+		<fieldset>
+			<legend>Dosen 1</legend>
+			<div class="control-group <?php echo form_error('jadwal_kode_dosen') ? 'error' : ''; ?>">
+				 <?php echo form_label('Dosen', 'masterdosen_kode_prodi', array('class' => 'control-label') ); ?>
+				 <div class='controls'>
+					 <select name="jadwal_kode_dosen" id="jadwal_kode_dosen" class="chosen-select-deselect">
+						 <option value=""></option>
+						 <?php if (isset($dosens) && is_array($dosens) && count($dosens)):?>
+						 <?php foreach($dosens as $record):?>
+							  <option value="<?php echo $record->id?>" <?php if(isset($jadwal['kode_dosen']))  echo  ($record->id==$jadwal['kode_dosen']) ? "selected" : ""; ?>><?php echo $record->nama_dosen; ?></option>
+						  <?php endforeach;?>
+						 <?php endif;?>
+					 </select>
+					 <span class='help-inline'><?php echo form_error('jadwal_kode_dosen'); ?></span>
+				 </div>
+			 </div> 
 			<div class="control-group <?php echo form_error('jadwal_hari') ? 'error' : ''; ?>">
 				<?php echo form_label('Hari', 'jadwal_hari', array('class' => 'control-label') ); ?>
 				<div class='controls'>		
@@ -105,80 +190,58 @@ $id = isset($jadwal['id']) ? $jadwal['id'] : '';
 					<span class='help-inline'><?php echo form_error('jadwal_jam'); ?></span>
 				</div>
 			</div>
+			
+			</fieldset>
+			<fieldset>
+				<legend>Dosen 2</legend>
+					<div class="control-group <?php echo form_error('jadwal_kode_dosen_2') ? 'error' : ''; ?>">
+						 <?php echo form_label('Dosen', 'masterdosen_kode_prodi', array('class' => 'control-label') ); ?>
+						 <div class='controls'>
+							 <select name="jadwal_kode_dosen_2" id="jadwal_kode_dosen_2" class="chosen-select-deselect">
+								 <option value=""></option>
+								 <?php if (isset($dosens) && is_array($dosens) && count($dosens)):?>
+								 <?php foreach($dosens as $record):?>
+									  <option value="<?php echo $record->id?>" <?php if(isset($jadwal['kode_dosen_2']))  echo  ($record->id==$jadwal['kode_dosen_2']) ? "selected" : ""; ?>><?php echo $record->nama_dosen; ?></option>
+								  <?php endforeach;?>
+								 <?php endif;?>
+							 </select>
+							 <span class='help-inline'><?php echo form_error('jadwal_kode_dosen_2'); ?></span>
+						 </div>
+					 </div> 
 
-		
+					<div class="control-group <?php echo form_error('jadwal_hari_2') ? 'error' : ''; ?>">
+						<?php echo form_label('Hari', 'jadwal_hari_2', array('class' => 'control-label') ); ?>
+						<div class='controls'>		
+							 <select name="jadwal_hari_2" id="jadwal_hari_2" class="chosen-select-deselect">
+								 <option value=""></option>
+								 <?php if (isset($pilihanhari) && is_array($pilihanhari) && count($pilihanhari)):?>
+								 <?php foreach($pilihanhari as $record):?>
+									  <option value="<?php echo $record->value?>" <?php if(isset($jadwal['hari_2']))  echo  ($record->value==$jadwal['hari_2']) ? "selected" : ""; ?>><?php echo $record->label; ?></option>
+								  <?php endforeach;?>
+								 <?php endif;?>
+							 </select>
+
+							<span class='help-inline'><?php echo form_error('jadwal_hari_2'); ?></span>
+						</div>
+					</div>
+
+					<div class="control-group <?php echo form_error('jadwal_jam_2') ? 'error' : ''; ?>">
+						<?php echo form_label('Jam', 'jadwal_jam_2', array('class' => 'control-label') ); ?>
+						<div class='controls'>			
+							 <select name="jadwal_jam_2" id="jadwal_jam_2" class="chosen-select-deselect">
+								 <option value=""></option>
+								 <?php if (isset($pilihansesi) && is_array($pilihansesi) && count($pilihansesi)):?>
+								 <?php foreach($pilihansesi as $record):?>
+									  <option value="<?php echo $record->value?>" <?php if(isset($jadwal['jam_2']))  echo  ($record->value==$jadwal['jam_2']) ? "selected" : ""; ?>> <?php echo $record->label; ?> | <?php echo $record->value ?></option>
+								  <?php endforeach;?>
+								 <?php endif;?>
+							 </select>
+							<span class='help-inline'><?php echo form_error('jadwal_jam_2'); ?></span>
+						</div>
+					</div>
+
 			
-			<div class="control-group <?php echo form_error('jadwal_kode_mk') ? 'error' : ''; ?>">
-				 <?php echo form_label('Mata Kuliah'. lang('bf_form_label_required'), 'masterdosen_kode_prodi', array('class' => 'control-label') ); ?>
-				 <div class='controls'>
-					 <select name="jadwal_kode_mk" id="jadwal_kode_mk" class="chosen-select-deselect">
-						 <option value=""></option>
-						 <?php if (isset($matakuliahs) && is_array($matakuliahs) && count($matakuliahs)):?>
-						 <?php foreach($matakuliahs as $record):?>
-							  <option value="<?php echo $record->kode_mata_kuliah;?>" <?php if(isset($jadwal['kode_mk']))  echo  ($record->kode_mata_kuliah==$jadwal['kode_mk']) ? "selected" : ""; ?>><?php echo $record->nama_mata_kuliah; ?></option>
-						  <?php endforeach;?>
-						 <?php endif;?>
-					 </select>
-					 <span class='help-inline'><?php echo form_error('jadwal_kode_mk'); ?></span>
-				 </div>
-			 </div> 
-			 <div class="control-group <?php echo form_error('jadwal_kode_dosen') ? 'error' : ''; ?>">
-				 <?php echo form_label('Dosen', 'masterdosen_kode_prodi', array('class' => 'control-label') ); ?>
-				 <div class='controls'>
-					 <select name="jadwal_kode_dosen" id="jadwal_kode_dosen" class="chosen-select-deselect">
-						 <option value=""></option>
-						 <?php if (isset($dosens) && is_array($dosens) && count($dosens)):?>
-						 <?php foreach($dosens as $record):?>
-							  <option value="<?php echo $record->id?>" <?php if(isset($jadwal['kode_dosen']))  echo  ($record->id==$jadwal['kode_dosen']) ? "selected" : ""; ?>><?php echo $record->nama_dosen; ?></option>
-						  <?php endforeach;?>
-						 <?php endif;?>
-					 </select>
-					 <span class='help-inline'><?php echo form_error('jadwal_kode_dosen'); ?></span>
-				 </div>
-			 </div> 
-			 
 			
-			<div class="control-group <?php echo form_error('jadwal_kelas') ? 'error' : ''; ?>">
-				 <?php echo form_label('Kelas', 'masterdosen_kode_prodi', array('class' => 'control-label') ); ?>
-				 <div class='controls'>
-				 	<input id='jadwal_kelas' type='text' name='jadwal_kelas' maxlength="10" value="<?php echo set_value('jadwal_kelas', isset($jadwal['kelas']) ? $jadwal['kelas'] : ''); ?>" />
-					<!--
-					 <select name="jadwal_kelas" id="jadwal_kelas" class="chosen-select-deselect">
-						 <option value=""></option>
-						 <?php if (isset($kelass) && is_array($kelass) && count($kelass)):?>
-						 <?php foreach($kelass as $record):?>
-							  <option value="<?php echo $record->nama_kelas; ?>" <?php if(isset($jadwal['kelas']))  echo  ($record->nama_kelas==$jadwal['kelas']) ? "selected" : ""; ?>><?php echo $record->nama_kelas; ?></option>
-						  <?php endforeach;?>
-						 <?php endif;?>
-					 </select>
-					 -->
-					 <span class='help-inline'><?php echo form_error('jadwal_kelas'); ?></span>
-				 </div>
-			 </div> 
-			 <div class="control-group <?php echo form_error('kuota_kelas') ? 'error' : ''; ?>">
-				<?php echo form_label('Kuota', 'kuota', array('class' => 'control-label') ); ?>
-				<div class='controls'>
-					<input id='kuota_kelas' type='text' name='kuota_kelas' maxlength="10" value="<?php echo set_value('kuota_kelas', isset($jadwal['kuota_kelas']) ? $jadwal['kuota_kelas'] : ''); ?>" />
-					<span class='help-inline'><?php echo form_error('kuota_kelas'); ?></span>
-				</div>
-			</div>
-			 <div class="control-group <?php echo form_error('jadwal_kelas') ? 'error' : ''; ?>">
-				 <?php echo form_label('Ruangan', 'masterdosen_kode_prodi', array('class' => 'control-label') ); ?>
-				 <div class='controls'>
-				 	<input id='jadwal_ruangan' type='text' name='jadwal_ruangan' maxlength="10" value="<?php echo set_value('kd_ruangan', isset($jadwal['kd_ruangan']) ? $jadwal['kd_ruangan'] : ''); ?>" />
-					<!--
-					 <select name="jadwal_ruangan" id="jadwal_ruangan" class="chosen-select-deselect">
-						 <option value=""></option>
-						 <?php if (isset($ruangans) && is_array($ruangans) && count($ruangans)):?>
-						 <?php foreach($ruangans as $record):?>
-							  <option value="<?php echo $record->kode_ruangan; ?>" <?php if(isset($jadwal['kd_ruangan']))  echo  ($record->kode_ruangan==$jadwal['kd_ruangan']) ? "selected" : ""; ?>><?php echo $record->Nama_ruangan; ?></option>
-						  <?php endforeach;?>
-						 <?php endif;?>
-					 </select>
-					 -->
-					 <span class='help-inline'><?php echo form_error('jadwal_kelas'); ?></span>
-				 </div>
-			 </div>   
 			<div class="form-actions">
 				<input type="submit" name="save" class="btn btn-primary" value="<?php echo lang('jadwal_action_edit'); ?>"  />
 				<?php echo lang('bf_or'); ?>

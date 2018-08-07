@@ -90,7 +90,7 @@ class Jadwal_model extends BF_Model {
 	{
 		if (empty($this->selects))
 		{
-			$this->select($this->table_name .'.*,nama_dosen,nama_mata_kuliah,nama_prodi,sks');
+			$this->select($this->table_name .'.*,masterdosen.nama_dosen,nama_mata_kuliah,nama_prodi,sks,md.nama_dosen as nama_dosen_2');
 		}
 		if ($semester != "")
 		{
@@ -115,6 +115,7 @@ class Jadwal_model extends BF_Model {
 		//$this->db->where('simak_mastermatakuliah.tahun_akademik = simak_jadwal.tahun_akademik'); // tambahan supaya tahun akademik diikutsertakan
 		$this->db->where('simak_mastermatakuliah.kode_prodi = simak_jadwal.prodi');
 		$this->db->join('masterdosen', 'masterdosen.id = jadwal.kode_dosen', 'left'); 
+		$this->db->join('masterdosen md', 'md.id = jadwal.kode_dosen_2', 'left'); 
 		$this->db->join('mastermatakuliah', 'mastermatakuliah.kode_mata_kuliah = jadwal.kode_mk', 'left');  
 		$this->db->join('masterprogramstudi', 'masterprogramstudi.kode_prodi = jadwal.prodi', 'left');  
 		return parent::find_all();
@@ -624,14 +625,14 @@ class Jadwal_model extends BF_Model {
 		{
 			$this->db->where('prodi',$kode_prodi);
 		} 
-		if ($tahunakademik != "")
-		{
+		//if ($tahunakademik != "")
+		//{
 			$this->db->where('simak_jadwal.tahun_akademik',$tahunakademik);
-		} 
+		//} 
 		
 		
 		$this->db->join('masterdosen', 'masterdosen.id = jadwal.kode_dosen', 'inner'); 
-		$this->db->join('kuesioner_jawaban', 'jadwal.id = kuesioner_jawaban.kode_jadwal', 'left'); 
+		$this->db->join('kuesioner_jawaban', 'jadwal.id = kuesioner_jawaban.kode_jadwal', 'inner'); 
 		$this->db->group_by("jadwal.kode_dosen");
 		return parent::find_all();
 

@@ -47,7 +47,7 @@
 
             <div class="info-box-content">
               <span class="info-box-text">Jml Dosen</span>
-               <span class="info-box-number"><?php echo isset($jumlahdosen) ? $jumlahdosen : "0"; ?> <small> Orang</small></span>
+               <span class="info-box-number"><a href="<?php echo base_url(); ?>admin/reports/dashboard_kprd/dosen"><?php echo isset($jumlahdosen) ? $jumlahdosen : "0"; ?> <small> Orang</small></a></span>
             </div>
             <!-- /.info-box-content -->
           </div>
